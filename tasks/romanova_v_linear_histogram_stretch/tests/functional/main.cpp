@@ -5,11 +5,9 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
-#include <numeric>
 #include <stdexcept>
 #include <string>
 #include <tuple>
-#include <utility>
 #include <vector>
 
 #include "romanova_v_linear_histogram_stretch/common/include/common.hpp"
@@ -23,13 +21,13 @@ class RomanovaVRunFuncTestsThreads : public ppc::util::BaseRunFuncTests<InType, 
  public:
   static std::string PrintTestParam(const TestType &test_param) {
     if (std::get<0>(test_param)) {
-      return std::to_string(std::get<0>(test_param)) + "_" + std::get<2>(test_param);
+      return std::to_string(static_cast<int>(std::get<0>(test_param))) + "_" + std::get<2>(test_param);
     }
-    return std::to_string(std::get<0>(test_param)) + "_" + std::to_string(std::get<1>(test_param));
+    return std::to_string(static_cast<int>(std::get<0>(test_param))) + "_" + std::to_string(std::get<1>(test_param));
   }
 
  protected:
-  std::vector<uint8_t> LoadImg(std::string name) {
+  static std::vector<uint8_t> LoadImg(const std::string &name) {
     int width = -1;
     int height = -1;
     int channels = -1;
@@ -49,11 +47,11 @@ class RomanovaVRunFuncTestsThreads : public ppc::util::BaseRunFuncTests<InType, 
     return img;
   }
 
-  std::vector<uint8_t> MakeImg(size_t width, size_t height, uint8_t low = 75, uint8_t range = 50) {
+  static std::vector<uint8_t> MakeImg(size_t width, size_t height, uint8_t low = 75, uint8_t range = 50) {
     std::vector<uint8_t> img(width * height);
     for (size_t i = 0; i < width; i++) {
       for (size_t j = 0; j < height; j++) {
-        img[i * height + j] = low + (j * 13 + i * 109) % range;
+        img[(i * height) + j] = low + ((j * 13 + i * 109) % range);
       }
     }
     return img;

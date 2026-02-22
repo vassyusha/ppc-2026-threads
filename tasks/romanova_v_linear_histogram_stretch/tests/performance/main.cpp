@@ -1,5 +1,10 @@
 #include <gtest/gtest.h>
 
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <vector>
+
 #include "romanova_v_linear_histogram_stretch/common/include/common.hpp"
 #include "romanova_v_linear_histogram_stretch/seq/include/ops_seq.hpp"
 #include "util/include/perf_test_util.hpp"
@@ -8,13 +13,13 @@ namespace romanova_v_linear_histogram_stretch_threads {
 
 class RomanovaVRunPerfTestThreads : public ppc::util::BaseRunPerfTests<InType, OutType> {
   const size_t kImageSize_ = 20000;
-  InType input_data_{};
+  InType input_data_;
 
-  std::vector<uint8_t> MakeImg(size_t width, size_t height, uint8_t low = 75, uint8_t range = 50) {
+  static std::vector<uint8_t> MakeImg(size_t width, size_t height, uint8_t low = 75, uint8_t range = 50) {
     std::vector<uint8_t> img(width * height);
     for (size_t i = 0; i < width; i++) {
       for (size_t j = 0; j < height; j++) {
-        img[i * height + j] = low + (j * 13 + i * 109) % range;
+        img[(i * height) + j] = low + ((j * 13 + i * 109) % range);
       }
     }
     return img;

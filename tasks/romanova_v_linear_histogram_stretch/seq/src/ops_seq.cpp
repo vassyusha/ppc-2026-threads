@@ -2,11 +2,10 @@
 
 #include <algorithm>
 #include <cstddef>
-#include <numeric>
+#include <cstdint>
 #include <vector>
 
 #include "romanova_v_linear_histogram_stretch/common/include/common.hpp"
-#include "util/include/util.hpp"
 
 namespace romanova_v_linear_histogram_stretch_threads {
 
