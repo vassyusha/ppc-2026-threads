@@ -21,9 +21,9 @@ class RomanovaVRunFuncTestsThreads : public ppc::util::BaseRunFuncTests<InType, 
  public:
   static std::string PrintTestParam(const TestType &test_param) {
     if (std::get<0>(test_param)) {
-      return std::to_string(static_cast<int>(std::get<0>(test_param))) + "_" + std::get<2>(test_param);
+      return "loaded_pic_" + std::get<2>(test_param);
     }
-    return std::to_string(static_cast<int>(std::get<0>(test_param))) + "_" + std::to_string(std::get<1>(test_param));
+    return "generated_with_size_" + std::to_string(std::get<1>(test_param));
   }
 
  protected:
@@ -87,7 +87,7 @@ TEST_P(RomanovaVRunFuncTestsThreads, PicTests) {
 }
 
 const std::array<TestType, 4> kTestParam = {std::make_tuple(0, 3, ""), std::make_tuple(0, 5, ""),
-                                            std::make_tuple(0, 70, ""), std::make_tuple(1, 0, "source_image")};
+                                            std::make_tuple(0, 70, ""), std::make_tuple(1, 0, "grey")};
 
 const auto kTestTasksList = std::tuple_cat(ppc::util::AddFuncTask<RomanovaVLinHistogramStretchSEQ, InType>(
     kTestParam, PPC_SETTINGS_romanova_v_linear_histogram_stretch));
