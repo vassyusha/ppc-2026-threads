@@ -1,10 +1,8 @@
 #include "romanova_v_linear_histogram_stretch/stl/include/ops_stl.hpp"
 
 #include <algorithm>
-#include <atomic>
-#include <numeric>
-#include <ranges>
 #include <thread>
+#include <utility>
 #include <vector>
 
 #include "romanova_v_linear_histogram_stretch/common/include/common.hpp"
@@ -17,7 +15,7 @@ void RomanovaVLinHistogramStretchSTL::GetThreadRange(size_t thid, size_t total, 
   size_t extra = total % num_th;
   size_t delta = total / num_th;
   size_t chunk = delta + (thid < extra ? 1 : 0);
-  beg = (thid < extra ? thid * chunk : extra * (chunk + 1) + (thid - extra) * chunk);
+  beg = (thid < extra ? thid * chunk : (extra * (chunk + 1)) + ((thid - extra) * chunk));
   en = beg + chunk;
 }
 
