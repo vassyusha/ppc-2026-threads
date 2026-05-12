@@ -17,8 +17,8 @@ void RomanovaVLinHistogramStretchSTL::GetThreadRange(size_t thid, size_t total, 
   size_t extra = total % num_th;
   size_t delta = total / num_th;
   size_t chunk = delta + (thid < extra ? 1 : 0);
-  beg = (thid < extra ? thid * chunk : extra * (chunk + 1) + (thid - extra) * chunk);  
-  en = beg + chunk; 
+  beg = (thid < extra ? thid * chunk : extra * (chunk + 1) + (thid - extra) * chunk);
+  en = beg + chunk;
 }
 
 RomanovaVLinHistogramStretchSTL::RomanovaVLinHistogramStretchSTL(const InType &in) {
