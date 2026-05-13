@@ -54,7 +54,7 @@ bool RomanovaVLinHistogramStretchALL::PreProcessingImpl() {
 
   if (rank == 0) {
     for (int i = 0; i < n; i++) {
-      vector_counts_[i] = delta + (i < extra ? 1 : 0);
+      vector_counts_[i] = delta + (std::cmp_less(i, extra) ? 1 : 0);
     }
 
     for (int i = 1; i < n; i++) {
