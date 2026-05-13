@@ -5,11 +5,13 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <iostream>
 #include <stdexcept>
 #include <string>
 #include <tuple>
 #include <vector>
 
+#include "romanova_v_linear_histogram_stretch/all/include/ops_all.hpp"
 #include "romanova_v_linear_histogram_stretch/common/include/common.hpp"
 #include "romanova_v_linear_histogram_stretch/omp/include/ops_omp.hpp"
 #include "romanova_v_linear_histogram_stretch/seq/include/ops_seq.hpp"
@@ -94,6 +96,8 @@ const std::array<TestType, 6> kTestParam = {std::make_tuple(0, 1, ""),   std::ma
 const auto kTestTasksList = std::tuple_cat(ppc::util::AddFuncTask<RomanovaVLinHistogramStretchSEQ, InType>(
                                                kTestParam, PPC_SETTINGS_romanova_v_linear_histogram_stretch),
                                            ppc::util::AddFuncTask<RomanovaVLinHistogramStretchOMP, InType>(
+                                               kTestParam, PPC_SETTINGS_romanova_v_linear_histogram_stretch),
+                                           ppc::util::AddFuncTask<RomanovaVLinHistogramStretchALL, InType>(
                                                kTestParam, PPC_SETTINGS_romanova_v_linear_histogram_stretch));
 
 const auto kGtestValues = ppc::util::ExpandToValues(kTestTasksList);
