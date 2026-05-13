@@ -18,6 +18,19 @@ void RomanovaVLinHistogramStretchSTL::GetThreadRange(size_t thid, size_t total, 
   en = (thid == num_th - 1) ? total : (beg + chunk);
 }
 
+void RomanovaVLinHistogramStretchSTL::FindMinMax(size_t begin, size_t end, uint8_t &curr_min, uint8_t &curr_max,
+                                                 const InType &in) {
+  for (size_t i = begin; i < end; ++i) {
+    uint8_t val = in[i];
+    if (val < curr_min) {
+      curr_min = val;
+    }
+    if (val > curr_max) {
+      curr_max = val;
+    }
+  }
+}
+
 RomanovaVLinHistogramStretchSTL::RomanovaVLinHistogramStretchSTL(const InType &in) {
   SetTypeOfTask(GetStaticTypeOfTask());
   GetInput() = in;
@@ -55,15 +68,7 @@ bool RomanovaVLinHistogramStretchSTL::RunImpl() {
       uint8_t current_min = 255;
       uint8_t current_max = 0;
 
-      for (size_t i = begin; i < end; ++i) {
-        uint8_t val = in[i];
-        if (val < current_min) {
-          current_min = val;
-        }
-        if (val > current_max) {
-          current_max = val;
-        }
-      }
+      FindMinMax(begin, end, current_min, current_max, in);
 
       local_min[thid] = current_min;
       local_max[thid] = current_max;
