@@ -89,8 +89,10 @@ bool RomanovaVLinHistogramStretchALL::RunImpl() {
   uint8_t min_v = 255;
   uint8_t max_v = 0;
 
-  MPI_Allreduce(&loc_min_v, &min_v, 1, MPI_UNSIGNED_CHAR, MPI_MIN, MPI_COMM_WORLD);
-  MPI_Allreduce(&loc_max_v, &max_v, 1, MPI_UNSIGNED_CHAR, MPI_MAX, MPI_COMM_WORLD);
+  MPI_Allreduce(static_cast<void *>(&loc_min_v), static_cast<void *>(&min_v), 1, MPI_UNSIGNED_CHAR, MPI_MIN,
+                MPI_COMM_WORLD);
+  MPI_Allreduce(static_cast<void *>(&loc_max_v), static_cast<void *>(&max_v), 1, MPI_UNSIGNED_CHAR, MPI_MAX,
+                MPI_COMM_WORLD);
 
   if (min_v == max_v) {
 #pragma omp parallel for default(none)  // shared(local_out_, local_data_, local_size_)
