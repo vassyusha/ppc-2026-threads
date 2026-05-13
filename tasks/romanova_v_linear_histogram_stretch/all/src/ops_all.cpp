@@ -5,6 +5,7 @@
 #include <algorithm>
 #include <cstddef>
 #include <cstdint>
+#include <utility>
 #include <vector>
 
 #include "romanova_v_linear_histogram_stretch/common/include/common.hpp"
@@ -54,7 +55,7 @@ bool RomanovaVLinHistogramStretchALL::PreProcessingImpl() {
 
   if (rank == 0) {
     for (int i = 0; i < n; i++) {
-      vector_counts_[i] = delta + (std::cmp_less(i, extra) ? 1 : 0);
+      vector_counts_[i] = static_cast<int>(delta + (std::cmp_less(i, extra) ? 1 : 0));
     }
 
     for (int i = 1; i < n; i++) {
@@ -88,8 +89,8 @@ bool RomanovaVLinHistogramStretchALL::RunImpl() {
   uint8_t min_v = 255;
   uint8_t max_v = 0;
 
-  MPI_Allreduce(&loc_min_v, &min_v, 1, MPI_UNSIGNED_CHAR, MPI_MIN, MPI_COMM_WORLD);
-  MPI_Allreduce(&loc_max_v, &max_v, 1, MPI_UNSIGNED_CHAR, MPI_MAX, MPI_COMM_WORLD);
+  MPI_Allreduce(&loc_min_v, &min_v, 1, MPI_INT, MPI_MIN, MPI_COMM_WORLD);
+  MPI_Allreduce(&loc_max_v, &max_v, 1, MPI_INT, MPI_MAX, MPI_COMM_WORLD);
 
   if (min_v == max_v) {
 #pragma omp parallel for default(none)  // shared(local_out_, local_data_, local_size_)
