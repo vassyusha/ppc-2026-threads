@@ -160,10 +160,10 @@ cmake -S . -B build -D USE_FUNC_TESTS=ON -D USE_PERF_TESTS=ON -D CMAKE_BUILD_TYP
 cmake --build build --config Release
 
 #запуск функциональных тестов
-./build/bin/Release/ppc_func_tests.exe
+./build/bin/ppc_func_tests.exe
 
 #получение основных замеров
-./build/bin/Release/ppc_perf_tests.exe --gtest_filter=*seq*
+./build/bin/ppc_perf_tests.exe --gtest_filter=*seq*
 ```
 
 ## 7. Результаты
@@ -171,7 +171,7 @@ cmake --build build --config Release
 
 | Backend | Threads | Время (s) |
 | :------ | :-----: | :--------: |
-| **SEQ** |    1    |    0.99013152   |
+| **SEQ** |    1    |    0.8106068600   |
 
 Два самых трудозатратных фрагмента — поиск максимума/минимума и основной проход с преобразованием изображения, так как в обоих фрагментах
 подразумевается обход всего массива.
