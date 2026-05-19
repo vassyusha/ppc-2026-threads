@@ -116,6 +116,7 @@ $out[i] = \frac{(in[i] - min_v)*255}{max_v-min_v}$. Если `min == max` (мо�
 
 ### Сборка и запуск
 
+<!-- markdownlint-disable MD046 -->
 ```powershell
 #сборка проекта
 cmake -S . -B build -D USE_FUNC_TESTS=ON -D USE_PERF_TESTS=ON -D CMAKE_BUILD_TYPE=Release
@@ -129,6 +130,7 @@ $env:PPC_NUM_THREADS = 4
 $env:PPC_NUM_THREADS = 8
 ./build/bin/ppc_perf_tests.exe --gtest_filter=*omp*
 ```
+<!-- markdownlint-enable MD046 -->
 
 ## 8. Результаты
 
